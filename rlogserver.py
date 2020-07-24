@@ -1,12 +1,12 @@
-# created by Tonyk7
 import logging
 import socket
 import _thread
 HOST = "0.0.0.0" 
 #HOST = socket.gethostname() +".local"   --- this also works but idk if its bad maybe uncomment it if stuff doesn't work
 PORT = 11909
-## change this to match the port in RemoteLog.h
 #rlog_port = 11909
+
+#  https://github.com/euske/python-netstring
 #
 class NetstringParser(object):
 
@@ -76,18 +76,6 @@ class NetstringParser(object):
         self = klass()
         self.feed(s)
         return self.results
-## code is from: https://gist.github.com/majek/1763628
-#def udp_server(host="0.0.0.0", port=rlog_port):
-#    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#    #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-#    s.bind((socket.gethostname(), port))
-#    while True:
-#        (data, addr) = s.recvfrom(128*1024)
-#        yield data
-#line = 0
-#for data in udp_server():
-#    print(line,">",data.decode('utf-8').strip())
-#    line +=1
 
 def on_new_client(connection, client_address):
     name ="placeholderbruh"
