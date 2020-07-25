@@ -32,6 +32,8 @@ class NetstringParser(object):
         return
         
     def feed(self, s):
+        if s[-1] != ",":
+            raise SyntaxError(1)
         i = 0
         while i < len(s):
             i = self._parse(s, i)
@@ -84,12 +86,18 @@ def on_new_client(connection, client_address):
         #print('connection from', client_address)
         # Receive the data in small chunks and retransmit it
         while True:
-            data = connection.recv(131072)
+            data = connection.recv(1024)
             #print(data)
             if len(data) == 0:
                 break
-            decodeddata = data.decode('utf-8').strip()
-            stringarray = NetstringParser.parse(decodeddata)
+            while 1:
+                try:
+                    decodeddata = data.decode('utf-8').strip()
+                    stringarray = NetstringParser.parse(decodeddata)
+                    break
+                except SyntaxError:
+                    data += connection.recv(1024)
+                
             #print(stringarray)
             if name == "placeholderbruh":
                 name = stringarray[0]  # we can do this because tcp is sequential
@@ -104,7 +112,7 @@ def on_new_client(connection, client_address):
         print(name+" closed")
         connection.close()
 
-
+#NetstringParser.parse('3:abc,4:def')
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
