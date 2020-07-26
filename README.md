@@ -1,6 +1,6 @@
 # RemoteLogTCP
 RemoteLog but its TCP
-This project is based on Muirey'ss [RemoteLog](https://github.com/Muirey03/RemoteLog). This project differs from Muirey's as it uses TCP instead of UDP this allows it to do some cool stuff with process information as all the data will arrive in order and failed packets will be retransmitted. It also comes with a few performance enhancing features like not creating and destroying a socket every log.
+This project is based on Muirey's [RemoteLog](https://github.com/Muirey03/RemoteLog). This project differs from Muirey's as it uses TCP instead of UDP this allows it to do some cool stuff with process information as all the data will arrive in order and failed packets will be retransmitted. It also comes with a few performance enhancing features like not creating and destroying a socket every log.
 It uses [netstring](https://en.wikipedia.org/wiki/Netstring) to format the messages as TCP is streambased so seperating messages is not as easy as packets in UDP.
 
 The high level ObjectiveC tcp interface means this can work with hostnames, ipv4 addresses and ipv6 addresses.
